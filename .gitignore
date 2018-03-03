@@ -124,3 +124,10 @@ Desktop.ini
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
+
+#---------------------------------------#
+# Maven STS                             #
+#---------------------------------------#
+mvnw
+mvnw.cmd
+.mvn/
