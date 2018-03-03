@@ -11,7 +11,7 @@ public class ReverseStringController {
 
 	@RequestMapping("/reversedWord")
 	public StringBuilder reversedWord(@RequestParam(value = "word", defaultValue = "MAP SEY") String word) {
-		String input = String.valueOf(word);
+		String input = word;
 		return reversed(input);
 	}
 
