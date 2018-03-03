@@ -1,9 +1,11 @@
-package com.rest.project.ProjectX;
+package com.rest.project.controllers;
 
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.rest.project.models.Greeting;
 
 @RestController
 public class GreetingController {

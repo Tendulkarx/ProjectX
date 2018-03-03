@@ -1,4 +1,4 @@
-package com.rest.project.ProjectX;
+package com.rest.project.models;
 
 public class Greeting {
 	
