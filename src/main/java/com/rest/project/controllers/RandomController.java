@@ -17,43 +17,26 @@ public class RandomController {
 
 		int minNum;
 		int maxNum;
-		
-		try {
-			minNum=Integer.valueOf(min);
-			maxNum=Integer.valueOf(max);
-		} catch (NumberFormatException e) {
-			return new ResponseEntity<String>("Please ensure you enter a numeric value for both Minimum and Maximum", HttpStatus.BAD_REQUEST);
 
+		try {
+			minNum = Integer.valueOf(min);
+			maxNum = Integer.valueOf(max);
+		} catch (NumberFormatException e) {
+			return new ResponseEntity<String>("Please ensure you enter a numeric value for both Minimum and Maximum",
+					HttpStatus.BAD_REQUEST);
 		}
-		
-//		if (isInteger(min) == false || isInteger(max) == false) {
-//			throw new IllegalArgumentException("Please ensure you enter a numeric value for both Minimum and Maximum");
-//		} else {
-//		 minNum = Integer.parseInt(min);
-//		 maxNum = Integer.parseInt(max);
-//		}
-		
+		// ensure maximum is never less than minimum
+		if (minNum >= maxNum) {
+			return new ResponseEntity<String>("Please ensure the Maximum value is larger than the Minimum value",
+					HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<String>(Integer.toString(getRandomNumberWithRange(minNum, maxNum)), HttpStatus.OK);
-		
-//		return getRandomNumberWithRange(minNum, maxNum);
 	}
 
+	// Random generator function
 	private int getRandomNumberWithRange(int min, int max) {
-		// ensure maximum is never less than minimum
-		if (min >= max)
-			throw new IllegalArgumentException("The Max number must be greater than the Min number");
-
+		// random number generator between two numbers
 		Random r = new Random();
 		return r.nextInt((max - min) + 1) + min;
 	}
-
-	//test if a string can be parsed as an integer
-//	private boolean isInteger(String stringToTest) {
-//		try {
-//			Integer.valueOf(stringToTest);
-//			return true;
-//		} catch (NumberFormatException e) {
-//			return false;
-//		}
-//	}
 }
