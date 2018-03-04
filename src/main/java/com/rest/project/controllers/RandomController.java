@@ -1,6 +1,9 @@
 package com.rest.project.controllers;
 
 import java.util.Random;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,19 +12,30 @@ import org.springframework.web.bind.annotation.RestController;
 public class RandomController {
 
 	@RequestMapping("/randomNum")
-	public int randomNum(@RequestParam(value = "min", defaultValue = "0") String min,
+	public ResponseEntity<String> randomNum(@RequestParam(value = "min", defaultValue = "0") String min,
 			@RequestParam(value = "max", defaultValue = "100") String max) {
 
-		int minNum=0;
-		int maxNum=0;
+		int minNum;
+		int maxNum;
 		
-		if (isInteger(min) == false || isInteger(max) == false) {
-			throw new IllegalArgumentException("Please ensure you enter a numeric value for both Minimum and Maximum");
-		} else {
-			 minNum = Integer.parseInt(min);
-			 maxNum = Integer.parseInt(max);
+		try {
+			minNum=Integer.valueOf(min);
+			maxNum=Integer.valueOf(max);
+		} catch (NumberFormatException e) {
+			return new ResponseEntity<String>("Please ensure you enter a numeric value for both Minimum and Maximum", HttpStatus.BAD_REQUEST);
+
 		}
-		return getRandomNumberWithRange(minNum, maxNum);
+		
+//		if (isInteger(min) == false || isInteger(max) == false) {
+//			throw new IllegalArgumentException("Please ensure you enter a numeric value for both Minimum and Maximum");
+//		} else {
+//		 minNum = Integer.parseInt(min);
+//		 maxNum = Integer.parseInt(max);
+//		}
+		
+		return new ResponseEntity<String>(Integer.toString(getRandomNumberWithRange(minNum, maxNum)), HttpStatus.OK);
+		
+//		return getRandomNumberWithRange(minNum, maxNum);
 	}
 
 	private int getRandomNumberWithRange(int min, int max) {
@@ -34,12 +48,12 @@ public class RandomController {
 	}
 
 	//test if a string can be parsed as an integer
-	public boolean isInteger(String stringToTest) {
-		try {
-			Integer.valueOf(stringToTest);
-			return true;
-		} catch (NumberFormatException e) {
-			return false;
-		}
-	}
+//	private boolean isInteger(String stringToTest) {
+//		try {
+//			Integer.valueOf(stringToTest);
+//			return true;
+//		} catch (NumberFormatException e) {
+//			return false;
+//		}
+//	}
 }
